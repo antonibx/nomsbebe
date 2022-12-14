@@ -4,6 +4,24 @@
       <h1 class="pt-5">Resultats</h1>
     <br>
     <div v-if="loaded" class="row align-items-start">
+      <div class="col"></div>
+      <div class="col">
+        <span v-if="sharedNames.length>0">
+          <div class="card">
+            <div class="card-body bg-white">
+              <span v-if="$store.state.gender=='nena'">La vostra nena s'hauria de dir:</span>
+              <span v-else>El vostre nen s'hauria de dir:</span>
+              <h1>{{sharedNamesOrdered[0].name}}</h1>
+              <img v-if="$store.state.gender=='nen'" style="height: 100px" src="@/assets/nen.png">
+              <img v-else style="height: 100px" src="@/assets/nena.png">
+            </div>
+          </div>
+        </span>
+      </div>
+      <div class="col"></div>
+    </div>
+    <br>
+    <div v-if="loaded" class="row align-items-start">
       <div class="col">
         <div class="card">
           <div class="card-body text-white bg-info">
@@ -22,31 +40,23 @@
         </div>
       </div>
       <div class="col">
-        <span v-if="sharedNames.length>0">
-          <div class="card">
-            <div class="card-body text-white bg-success">
-              La vostra nena s'hauria de dir:
-              <h1>{{sharedNamesOrdered[0].name}}</h1>
-            </div>
+        <div v-if="sharedNames.length>1" class="card">
+          <div class="card-body text-white bg-success">
+            <h5 class="card-title">Agraden als dos <span class="badge">{{sharedNames.length}}</span></h5>
+            <hr>
+            <draggable 
+              v-model="sharedNamesOrdered" 
+              group="people" 
+              @start="drag=true" 
+              @end="drag=false" 
+              item-key="id">
+              <template #item="{element}">
+                <div class="badge name mx-1">{{element.name}}</div>
+              </template>
+            </draggable>
           </div>
-          <div v-if="sharedNames.length>1" class="card">
-            <div class="card-body text-white bg-success">
-              <h5 class="card-title">Altres noms que agraden als dos <span class="badge">{{sharedNames.length}}</span></h5>
-              <hr>
-              <draggable 
-                v-model="sharedNamesOrdered" 
-                group="people" 
-                @start="drag=true" 
-                @end="drag=false" 
-                item-key="id">
-                <template #item="{element, index}">
-                  <div v-if="index != 0" class="badge name mx-1">{{element.name}}</div>
-                </template>
-              </draggable>
-            </div>
-          </div>
-        </span>
-        <span v-else>
+        </div>
+        <span v-else-if="sharedNames.length==0">
           <div class="card">
             <div class="card-body text-white bg-danger">
               No coincidiu en cap nom :(

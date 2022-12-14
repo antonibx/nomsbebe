@@ -2,7 +2,7 @@
   <div class="container text-center" id="component">
     <br>
     <h1 class="">
-      <button @click="$store.dispatch('setGender', null)" type="button" class="m-2 btn btn-primary btn-block">⮌</button>
+      <button @click="$store.dispatch('reset')" type="button" class="m-2 btn btn-primary btn-block">⮌</button>
       Noms de {{gender}}
       <img v-if="gender=='nen'" style="height: 100px" src="@/assets/nen.png">
       <img v-else style="height: 100px" src="@/assets/nena.png">
@@ -142,8 +142,8 @@ export default {
             mes +=1 ;
           }
         })
-        //if(this.currentItemIndex<this.totalItemsIndex && mes>0)
-        if(this.currentItemIndex<20 && mes>0)
+        if(this.currentItemIndex<this.totalItemsIndex && mes>0)
+        //if(this.currentItemIndex<20 && mes>0)
         {
           let newPos = pos+25;
           this.fetch(url, newPos);
@@ -167,7 +167,7 @@ export default {
     {
       if((this.$store.state.user1_list).length>0)
       {
-        alert('Mmoment de veure els resultats... nervis!');
+        alert('Moment de veure els resultats... quins nervis!');
         this.$emit('bothListsFilled');
       }
       else alert('Torn de la teva parella');
@@ -175,7 +175,6 @@ export default {
       this.names = this.allNames;
       this.likedNames = [];
       this.dislikedNames = [];
-
     }
   },
 
