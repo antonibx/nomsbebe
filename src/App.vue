@@ -1,8 +1,19 @@
 <template>
   <div>
-    <router-view/>
+    <Inici/>
   </div>
 </template>
+
+<script>
+import Inici from '@/views/Inici.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    Inici,
+  }
+}
+</script>
 
 <style>
 #app {
